@@ -1,0 +1,37 @@
+#+TITLE: teacherspyt
+#+AUTHOR: Panayotis Manganaris
+#+EMAIL: pmangana@purdue.edu
+#+DATE: [2023-04-19 Wed]
+
+* What is active learning in pedagogy?
+
+novel methodology emphasizing interactions between
+- students and learning objectives
+- students and students
+- students and teachers
+
+these priorities are expected to improve
+- course engagement
+- applicability to student concerns
+- suitability for student group's 
+
+* useful services for collecting active feedback
+Here are some good tools for collecting stuent feedback
+- https://engineering.purdue.edu/coursemirror/
+- https://www.itap.purdue.edu/services/qualtrics.html
+
+* Being an effective TA in active learning
+
+* Exporting qualtrics surveys to proprietary format
+
+[[https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ExportingaSurveyasaQSF][export to QSF]]
+
+* Importing qualtrics surveys from proprietary format
+
+[[https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey][import from QSF]]
+
+* Contributing!
+
+teacherspyt (https://github.com/PanayotisManganaris/teacherspyt) aims
+to collect and organize all sorts of teacher/student aids, please
+contribute [[https://github.com/PanayotisManganaris/teacherspyt/pulls][pull requests]] or open an [[https://github.com/PanayotisManganaris/teacherspyt/issues][issue]] to request a feature!
