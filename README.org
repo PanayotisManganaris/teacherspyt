@@ -2,36 +2,90 @@
 #+AUTHOR: Panayotis Manganaris
 #+EMAIL: pmangana@purdue.edu
 #+DATE: [2023-04-19 Wed]
+#+PROPERTY: header-args:jupyter-python :session ta :kernel ta :pandoc org
 
 * What is active learning in pedagogy?
-
-novel methodology emphasizing interactions between
-- students and learning objectives
-- students and students
+** objectives
+course delivery method emphasizing interactions between
 - students and teachers
+- students and students
+- students and the course itself
 
-these priorities are expected to improve
-- course engagement
-- applicability to student concerns
-- suitability for student group's 
+** benefits
+- engaging :: project based learning encourages participation
+- adaptable :: student reactions can be used to influence course delivery
 
-* useful services for collecting active feedback
-Here are some good tools for collecting stuent feedback
-- https://engineering.purdue.edu/coursemirror/
-- https://www.itap.purdue.edu/services/qualtrics.html
+** Requirements
+these objectives are *data-driven*
+1. collect student feedback
+2. process student feedback (=teacherspyt= lives here)
+3. reward student feedback 
+
+* Purdue University resources 
+multiple investments support active learning techniques
+
+** Purdue based services
+- [[https://engineering.purdue.edu/coursemirror/][CourseMIRROR]] aids collecting continuous student feedback
+- [[https://www.purdue.edu/activelearning/index.php][Wilmeth Active Learning Center]] modern classroom and library complex
+- [[https://www.lib.purdue.edu/][Purdue digital library]] multidisciplinary array of research databases
+
+** Third party services available through Purdue
+- [[https://www.itap.purdue.edu/services/qualtrics.html][Qualtrics]] 
 
 * Being an effective TA in active learning
+** two complimentary tasks
+1. monitor and motivate student interactions
+2. keep professor informed of student feedback
 
-* Exporting qualtrics surveys to proprietary format
+** grading
+active learning courses typically grade both
+- performance
+- participation
 
-[[https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ExportingaSurveyasaQSF][export to QSF]]
+=teacherspyt= currently provides tools for participation grading
 
-* Importing qualtrics surveys from proprietary format
+** lesson planning
+The course itself is flexible at the professor's discretion
+- tune course material to student ability and interests
+  - specify projects + homework based on student's interests
+  - review and/or restructure lectures according to feedback
+- quantifiable students are rewarded for participation and performance
 
-[[https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey][import from QSF]]
+* Grade qualtrics survey using teacherspyt
+** set up survey
+An example of a valid survey is included in the =teacherspyt=
+repository as a Qualtrics survey file (qsf)
+
+1. [[https://www.qualtrics.com/support/survey-platform/survey-module/survey-tools/import-and-export-surveys/#ImportingASurvey][import]] to Qualtrics, modify, and deploy to students.
+2. export collected data to tabular format of choice
+
+Qualtrics makes it easy to customize a survey, but it is important to
+follow the template to ensure =teacherspyt= works correctly.
+
+** initialize grading session
+#+begin_src jupyter-python
+  import pandas as pd
+  import teacherspyt
+#+end_src
+
+#+RESULTS:
+
+** read data to dataframe
+#+begin_src jupyter-python
+  df = pd.read_excel(
+      "~/vm/shared/post-parlay-survey-POLYMERS.xlsx",
+      header=[0,1]
+  ).dropna(how='all')
+#+end_src
+
+#+RESULTS:
+
+** use teacherspyt dataframe accessor to easily summarize data
+
 
 * Contributing!
 
-teacherspyt (https://github.com/PanayotisManganaris/teacherspyt) aims
-to collect and organize all sorts of teacher/student aids, please
-contribute [[https://github.com/PanayotisManganaris/teacherspyt/pulls][pull requests]] or open an [[https://github.com/PanayotisManganaris/teacherspyt/issues][issue]] to request a feature!
+=teacherspyt= (https://github.com/PanayotisManganaris/teacherspyt)
+aims to collect and organize all sorts of teacher/student aids, please
+fork and contribute new feature [[https://github.com/PanayotisManganaris/teacherspyt/pulls][pull requests]] or open an [[https://github.com/PanayotisManganaris/teacherspyt/issues][issue]] to
+request a feature!
