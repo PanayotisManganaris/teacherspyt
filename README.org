@@ -62,7 +62,24 @@ repository as a Qualtrics survey file (qsf)
 Qualtrics makes it easy to customize a survey, but it is important to
 follow the template to ensure =teacherspyt= works correctly.
 
+** install =teacherspyt=
+optionally create a virtual python environment and run
+: pip install git+https://github.com/panayotismanganairs/teacherspyt.git
+
 ** initialize grading session
+#+begin_src jupyter-python
+  %load_ext autoreload
+  %autoreload 2
+#+end_src
+
+#+RESULTS:
+: The autoreload extension is already loaded. To reload it, use:
+:   %reload_ext autoreload
+: /home/panos/src/teacherspyt/teacherspyt/_team_reflections.py:7: UserWarning: registration of accessor <class 'teacherspyt._team_reflections.PeerReviewAccessor'> under name 'pr' for type <class 'pandas.core.frame.DataFrame'> is overriding a preexisting attribute with the same name.
+:   """
+
+the only tools you need
+
 #+begin_src jupyter-python
   import pandas as pd
   import teacherspyt
@@ -71,6 +88,8 @@ follow the template to ensure =teacherspyt= works correctly.
 #+RESULTS:
 
 ** read data to dataframe
+just use standard pandas 
+
 #+begin_src jupyter-python
   df = pd.read_excel(
       "~/vm/shared/post-parlay-survey-POLYMERS.xlsx",
@@ -80,8 +99,33 @@ follow the template to ensure =teacherspyt= works correctly.
 
 #+RESULTS:
 
-** use teacherspyt dataframe accessor to easily summarize data
+** use =teacherspyt= to easily summarize data
+the =PeerReviewAccessor= is available through the =pr= extension method
 
+#+begin_src jupyter-python
+  df.pr.summary()
+#+end_src
+
+#+RESULTS:
+:RESULTS:
+|     | name                | section                                | explanation                                       | author | rating   |
+|-----+---------------------+----------------------------------------+---------------------------------------------------+--------+----------|
+| 0   | aangolds@purdue.edu | did not submit (Recycling Team 1 N/A ) | None                                              | False  | 5.000000 |
+| 1   | chris260@purdue.edu | did not submit (N/A )                  | None                                              | False  | 5.000000 |
+| 2   | hollan66@purdue.edu | did not submit (Recycling Team 1 N/A ) | None                                              | False  | 4.850000 |
+| 3   | kansara@purdue.edu  | did not submit (N/A )                  | Our group was like a well oiled machine. Absol... | True   | 5.000000 |
+| 4   | mathew99@purdue.edu | did not submit (Printing Team 2 )      | None                                              | False  | 4.950000 |
+| ... | ...                 | ...                                    | ...                                               | ...    | ...      |
+| 58  | romack0@purdue.edu  | did not submit (Textiles Team 2 )      | While Julia was very responsive and showe...      | True   | 4.733333 |
+| 59  | shjaffer@purdue.edu | did not submit (N/A )                  | None                                              | False  | 4.966667 |
+| 60  | tcroppe@purdue.edu  | did not submit (Printing Team 1 )      | None                                              | False  | 4.987500 |
+| 61  | tdeucher@purdue.edu | did not submit (N/A )                  | None                                              | False  | 4.975000 |
+| 62  | tobuchow@purdue.edu | did not submit (Printing Team 2 )      | None                                              | False  | 4.950000 |
+
+63 rows × 5 columns
+:END:
+
+** grade and introspect results
 
 * Contributing!
 
