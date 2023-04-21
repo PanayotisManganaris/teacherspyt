@@ -9,7 +9,9 @@ class PeerReviewAccessor():
     set of tools for quickly processing survey responses
     """
     def __init__(self, df):
+        self.id_string = self._validate(df)
         self.df = df
+        self._ldf = pd.DataFrame()
 
     @staticmethod
     def _validate(df):
@@ -48,8 +50,24 @@ class PeerReviewAccessor():
         ldf = ldf.dropna(subset=['name'])
 
         ldf['author'] = ldf['author'].apply(
-            lambda x: 'your purdue email'.casefold() in x.casefold()
+            lambda x: re.search(
+                '[your'.casefold() + '.*' + self.id_string.casefold() + ']',
+                x.casefold()
+            )
         )
+        # identifies students who submitted their reflection by
+        # looking for "your" + "email", "name" "etc"
+
+        self.ldf = ldf.set_index(ldf.iloc[:, [0,-3,-2,-1]].columns.to_list())
+        self.ldf.index.names = ['section', 'explanation', 'author', 'name']
+
+        return self.ldf
+
+    def long(self):
+        if self._ldf.empty:
+            return self._make_long()
+        else:
+            return self._ldf
 
         ldf = ldf.set_index(ldf.iloc[:, [0,-3,-2,-1]].columns.to_list())
         ldf.index.names = ['section', 'explanation', 'author', 'name']
