@@ -2,6 +2,9 @@ import numpy as np
 import pandas as pd
 from fuzzywuzzy import process
 import re
+import pprint
+
+pp = pprint.PrettyPrinter(width=79, compact=True)
 
 @pd.api.extensions.register_dataframe_accessor("pr")
 class PeerReviewAccessor():
@@ -92,6 +95,9 @@ class PeerReviewAccessor():
             return self._make_summary()
         else:
             return self._sdf
+
+    def explain(self, ind):
+        pp.pprint(self.summary().at[ind, 'explanation'])
 
 def normalize_names(ldf, score_threshold = 90):
     """
