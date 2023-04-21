@@ -11,7 +11,29 @@ class PeerReviewAccessor():
     def __init__(self, df):
         self.df = df
 
-    def long(self, id_col:pd.Index):
+    @staticmethod
+    def _validate(df):
+        """
+        ensure dataframe format implies a single student is asked for
+        multiple identifiers, i.e. a team. return the identifier string
+        """
+        questions = df.columns.difference(
+            df.select_dtypes(np.number).columns
+        ).get_level_values(-1)
+        
+        ident1 = ['email address' in s for s in questions.to_list()]
+        ident2 = ['name' in s for s in questions.to_list()]
+
+        if sum(ident1) >= 2:
+            return 'email address'
+        elif sum(ident2) >= 2:
+            return 'name'
+        else:
+            raise AttributeError(
+                'peer reviews must have 2 or more identifier columns'
+            )
+
+    def _make_long(self):
         ldf = self.df.melt(
             id_vars = self.df.columns.difference(id_col).to_list(),
             value_name = 'name',
