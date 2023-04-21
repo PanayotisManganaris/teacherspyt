@@ -51,7 +51,7 @@ The course itself is flexible at the professor's discretion
   - review and/or restructure lectures according to feedback
 - quantifiable students are rewarded for participation and performance
 
-* Grade qualtrics survey using teacherspyt
+* assess student group experiences
 ** set up survey
 An example of a valid survey is included in the =teacherspyt=
 repository as a Qualtrics survey file (qsf)
@@ -62,24 +62,12 @@ repository as a Qualtrics survey file (qsf)
 Qualtrics makes it easy to customize a survey, but it is important to
 follow the template to ensure =teacherspyt= works correctly.
 
+* grade student group reflections
 ** install =teacherspyt=
 optionally create a virtual python environment and run
 : pip install git+https://github.com/panayotismanganairs/teacherspyt.git
 
 ** initialize grading session
-#+begin_src jupyter-python
-  %load_ext autoreload
-  %autoreload 2
-#+end_src
-
-#+RESULTS:
-: The autoreload extension is already loaded. To reload it, use:
-:   %reload_ext autoreload
-: /home/panos/src/teacherspyt/teacherspyt/_team_reflections.py:7: UserWarning: registration of accessor <class 'teacherspyt._team_reflections.PeerReviewAccessor'> under name 'pr' for type <class 'pandas.core.frame.DataFrame'> is overriding a preexisting attribute with the same name.
-:   """
-
-the only tools you need
-
 #+begin_src jupyter-python
   import pandas as pd
   import teacherspyt
@@ -88,8 +76,6 @@ the only tools you need
 #+RESULTS:
 
 ** read data to dataframe
-just use standard pandas 
-
 #+begin_src jupyter-python
   df = pd.read_excel(
       "~/vm/shared/post-parlay-survey-POLYMERS.xlsx",
@@ -103,7 +89,8 @@ just use standard pandas
 the =PeerReviewAccessor= is available through the =pr= extension method
 
 #+begin_src jupyter-python
-  df.pr.summary()
+  rdf = df.pr.summary()
+  rdf
 #+end_src
 
 #+RESULTS:
@@ -126,6 +113,38 @@ the =PeerReviewAccessor= is available through the =pr= extension method
 :END:
 
 ** grade and introspect results
+#+begin_src jupyter-python
+  rdf['score'] = rdf['rating'] * [
+      2 if check else 1 for check in rdf['section'].str.casefold().str.contains('team')
+  ]
+#+end_src
+
+#+RESULTS:
+
+#+begin_src jupyter-python
+  with pd.option_context('display.max_rows', None):
+      display(rdf[rdf['rating'] < 4.7])
+#+end_src
+
+#+RESULTS:
+:RESULTS:
+|    | name                | section                            | explanation                                       | author | rating | score |
+|----+---------------------+------------------------------------+---------------------------------------------------+--------+--------+-------|
+| 8  | baile261@purdue.edu | did not submit (Recycling Team 1 ) | I feel like I didn't participate much in the p... | True   | 4.55   | 9.1   |
+| 11 | bquintae@purdue.edu | did not submit (N/A )              | None                                              | False  | 4.50   | 4.5   |
+| 14 | bush75@purdue.edu   | did not submit (Recycling Team 1 ) | I feel like I didn't participate much in the p... | True   | 4.55   | 9.1   |
+| 38 | jschull@purdue.edu  | did not submit (Recycling Team 1 ) | I feel like I didn't participate much in the p... | True   | 4.55   | 9.1   |
+| 46 | mathew71@purdue.edu | did not submit (Recycling Team 1 ) | I feel like I didn't participate much in the p... | True   | 4.55   | 9.1   |
+| 51 | nlongrei@purdue.edu | did not submit (Textiles Team 2 )  | While Julia was very responsive and showe...      | True   | 4.60   | 9.2   |
+:END:
+
+#+begin_src jupyter-python
+  df.pr.explain(38)
+#+end_src
+
+#+RESULTS:
+: ("I feel like I didn't participate much in the parlay day and wasn't "
+:  'responsive enough for meetings with regards to the presentation')
 
 * Contributing!
 
