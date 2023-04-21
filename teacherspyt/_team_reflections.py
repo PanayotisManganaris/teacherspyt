@@ -35,7 +35,12 @@ class PeerReviewAccessor():
 
     def _make_long(self):
         ldf = self.df.melt(
-            id_vars = self.df.columns.difference(id_col).to_list(),
+            id_vars = self.df.columns.difference(
+                self.df.columns[
+                    self.df.columns.get_level_values(-1).str.contains(
+                        self.id_string
+                    )
+                ]).to_list(),
             value_name = 'name',
             var_name = ["q_name", 'author']
         ).drop('q_name', axis=1)
