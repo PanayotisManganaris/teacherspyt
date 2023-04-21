@@ -106,7 +106,6 @@ def normalize_names(ldf, score_threshold = 90):
     return ldf
 
 def student_metric_aggregate(df):
-    breakpoint()
     section = df.section.str.split('-').str[0][df['author'] == True] if (
         True in df['author'].to_list()
     ) else pd.Series(
@@ -134,5 +133,4 @@ def student_metric_aggregate(df):
     rating = pd.Series(df.rating.mean())
     rating.name = 'rating'
     rating = rating.reset_index(drop=True)
-    test = pd.concat([section, explanation, author, rating], axis=1)
-    return test
+    return pd.concat([section, explanation, author, rating], axis=1)
