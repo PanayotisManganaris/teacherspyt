@@ -12,6 +12,7 @@ class PeerReviewAccessor():
         self.id_string = self._validate(df)
         self.df = df
         self._ldf = pd.DataFrame()
+        self._sdf = pd.DataFrame()
 
     @staticmethod
     def _validate(df):
@@ -69,22 +70,28 @@ class PeerReviewAccessor():
         else:
             return self._ldf
 
-    def summary(self, func='mean', axis=1, grouping_threshold=90):
+    def _make_summary(self, func='mean', axis=1, grouping_threshold=90):
         ldf = self.long().agg(func=func, axis=axis)
         ldf = ldf.reset_index()
         ldf = ldf.rename(columns={0: 'rating'})
 
         ldf = normalize_names(ldf, grouping_threshold)
 
-        sdf = ldf.groupby('name').apply(
+        self.sdf = ldf.groupby('name').apply(
             student_metric_aggregate
         ).reset_index(
             names=['name', 'drop']
         ).drop('drop', axis=1)
 
-        sdf['name'] = sdf.name.str.casefold()
+        self.sdf['name'] = self.sdf.name.str.casefold()
 
-        return sdf
+        return self.sdf
+
+    def summary(self):
+        if self._sdf.empty:
+            return self._make_summary()
+        else:
+            return self._sdf
 
 def normalize_names(ldf, score_threshold = 90):
     """
