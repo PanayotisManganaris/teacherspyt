@@ -69,17 +69,15 @@ class PeerReviewAccessor():
         else:
             return self._ldf
 
-        ldf = ldf.set_index(ldf.iloc[:, [0,-3,-2,-1]].columns.to_list())
-        ldf.index.names = ['section', 'explanation', 'author', 'name']
-        ldf = ldf.mean(axis=1)
+    def summary(self, func='mean', axis=1, grouping_threshold=90):
+        ldf = self.long().agg(func=func, axis=axis)
         ldf = ldf.reset_index()
         ldf = ldf.rename(columns={0: 'rating'})
 
-        return ldf
+        ldf = normalize_names(ldf, grouping_threshold)
 
-    def summarize(self, id_col):
-        sdf = self.df.get_long(id_col).groupby('name').apply(
-            column_aware_aggregator
+        sdf = ldf.groupby('name').apply(
+            student_metric_aggregate
         ).reset_index(
             names=['name', 'drop']
         ).drop('drop', axis=1)
