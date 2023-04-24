@@ -95,19 +95,19 @@ the =PeerReviewAccessor= is available through the =pr= extension method
 
 #+RESULTS:
 :RESULTS:
-|     | name                | section                                | explanation                                       | author | rating   |
-|-----+---------------------+----------------------------------------+---------------------------------------------------+--------+----------|
-| 0   | aangolds@purdue.edu | did not submit (Recycling Team 1 N/A ) | None                                              | False  | 5.000000 |
-| 1   | chris260@purdue.edu | did not submit (N/A )                  | None                                              | False  | 5.000000 |
-| 2   | hollan66@purdue.edu | did not submit (Recycling Team 1 N/A ) | None                                              | False  | 4.850000 |
-| 3   | kansara@purdue.edu  | did not submit (N/A )                  | Our group was like a well oiled machine. Absol... | True   | 5.000000 |
-| 4   | mathew99@purdue.edu | did not submit (Printing Team 2 )      | None                                              | False  | 4.950000 |
-| ... | ...                 | ...                                    | ...                                               | ...    | ...      |
-| 58  | romack0@purdue.edu  | did not submit (Textiles Team 2 )      | While Julia was very responsive and showe...      | True   | 4.733333 |
-| 59  | shjaffer@purdue.edu | did not submit (N/A )                  | None                                              | False  | 4.966667 |
-| 60  | tcroppe@purdue.edu  | did not submit (Printing Team 1 )      | None                                              | False  | 4.987500 |
-| 61  | tdeucher@purdue.edu | did not submit (N/A )                  | None                                              | False  | 4.975000 |
-| 62  | tobuchow@purdue.edu | did not submit (Printing Team 2 )      | None                                              | False  | 4.950000 |
+|     | name                | section               | explanation                                       | author | rating   |
+|-----+---------------------+-----------------------+---------------------------------------------------+--------+----------|
+| 0   | aangolds@purdue.edu | Recycling Team 1      | None                                              | False  | 5.000000 |
+| 1   | chris260@purdue.edu | N/A                   | None                                              | False  | 5.000000 |
+| 2   | hollan66@purdue.edu | Recycling Team 1      | None                                              | False  | 4.850000 |
+| 3   | kansara@purdue.edu  | did not submit (N/A ) | Our group was like a well oiled machine. Absol... | False  | 5.000000 |
+| 4   | mathew99@purdue.edu | Printing Team 2       | None                                              | False  | 4.950000 |
+| ... | ...                 | ...                   | ...                                               | ...    | ...      |
+| 58  | romack0@purdue.edu  | Textiles Team 2       | While Julia was very responsive and showe...      | True   | 4.733333 |
+| 59  | shjaffer@purdue.edu | N/A                   | None                                              | False  | 4.966667 |
+| 60  | tcroppe@purdue.edu  | Printing Team 1       | None                                              | False  | 4.987500 |
+| 61  | tdeucher@purdue.edu | N/A                   | None                                              | False  | 4.975000 |
+| 62  | tobuchow@purdue.edu | Printing Team 2       | None                                              | False  | 4.950000 |
 
 63 rows × 5 columns
 :END:
@@ -147,6 +147,8 @@ the =PeerReviewAccessor= is available through the =pr= extension method
 :  'responsive enough for meetings with regards to the presentation')
 
 * Contributing!
+
+I wish I had these tools before I started. Now they exist. Yay.
 
 =teacherspyt= (https://github.com/PanayotisManganaris/teacherspyt)
 aims to collect and organize all sorts of teacher/student aids, please

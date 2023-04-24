@@ -54,10 +54,10 @@ class PeerReviewAccessor():
         ldf = ldf.dropna(subset=['name'])
 
         ldf['author'] = ldf['author'].apply(
-            lambda x: re.search(
-                '[your'.casefold() + '.*' + self.id_string.casefold() + ']',
+            lambda x: bool(re.search(
+                r'your .*' + self.id_string.casefold(),
                 x.casefold()
-            )
+            ))
         )
         # identifies students who submitted their reflection by
         # looking for "your" + "email", "name" "etc"
@@ -119,7 +119,7 @@ def normalize_names(ldf, score_threshold = 90):
     return ldf
 
 def student_metric_aggregate(df):
-    section = df.section.str.split('-').str[0][df['author'] == True] if (
+    section = df.section.str.split('-').str[0][df['author']] if (
         True in df['author'].to_list()
     ) else pd.Series(
         'did not submit (' + df.section.str.split('-').str[0].unique().sum() + ')'
