@@ -89,7 +89,7 @@ optionally create a virtual python environment and run
 the =PeerReviewAccessor= is available through the =pr= extension method
 
 #+begin_src jupyter-python
-  rdf = df.pr.summary()
+  rdf = df.pr.summary(func='mean', threshold=90)
   rdf
 #+end_src
 
@@ -115,7 +115,7 @@ the =PeerReviewAccessor= is available through the =pr= extension method
 ** grade and introspect results
 #+begin_src jupyter-python
   rdf['score'] = rdf['rating'] * [
-      2 if check else 1 for check in rdf['section'].str.casefold().str.contains('team')
+      2 if check else 1 for check in rdf['section'].str.contains('Team')
   ]
 #+end_src
 

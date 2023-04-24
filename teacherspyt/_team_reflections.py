@@ -90,9 +90,11 @@ class PeerReviewAccessor():
 
         return self.sdf
 
-    def summary(self):
-        if self._sdf.empty:
-            return self._make_summary()
+    def summary(self, func='mean', axis=1, threshold=90, regen=False):
+        if self._sdf.empty or regen:
+            return self._make_summary(func=func,
+                                      axis=axis,
+                                      grouping_threshold=threshold)
         else:
             return self._sdf
 
